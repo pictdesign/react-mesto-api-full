@@ -1,0 +1,14 @@
+.element__info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 20px 26px 20px;
+  background-color: white;
+  border-radius: 0 0 10px 10px;
+}
+
+@media screen and (max-width: 320px) {
+  .element__info {
+    padding-bottom: 25px;
+  }
+}

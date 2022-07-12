@@ -1,0 +1,14 @@
+.form__container {
+  max-width: 358px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  row-gap: 216px;
+}
+
+@media screen and (max-width: 768px) {
+  .form__container {
+    row-gap: 173px;
+  }
+}

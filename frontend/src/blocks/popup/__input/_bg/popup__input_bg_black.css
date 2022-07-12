@@ -1,0 +1,9 @@
+.popup__input_bg_black {
+  background-color: black;
+  border-bottom: 2px solid #CCCCCC;
+  color: #fff;
+}
+
+.popup__input_bg_black::placeholder {
+  color: #CCC;
+}

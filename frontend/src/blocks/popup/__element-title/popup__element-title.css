@@ -1,0 +1,15 @@
+.popup__element-title{
+  margin: 0;
+  padding-top: 10px;
+  font-family: Inter, Helvetica, sans-serif;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 15px;
+  color: #FFFFFF;
+  margin-top: auto;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+  align-self: flex-start;
+}

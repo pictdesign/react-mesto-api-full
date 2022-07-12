@@ -1,0 +1,27 @@
+.profile__info {
+  width: 336px;
+  display: grid;
+  display: -moz-grid;
+  display: -ms-grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas: 
+  "name edit"
+  "status .";
+  column-gap: 19px;
+  row-gap: 10px;
+  padding-left: 30px;
+}
+
+@media screen and (max-width: 768px) {
+  .profile__info {
+    grid-template-columns: 1fr auto 1fr;
+    grid-template-areas: 
+    ". name edit"
+    ". status .";
+    padding-top: 24px;
+    width: 282px;
+    padding-left: 0;
+    column-gap: 10px;
+    row-gap: 7px;
+  }
+}

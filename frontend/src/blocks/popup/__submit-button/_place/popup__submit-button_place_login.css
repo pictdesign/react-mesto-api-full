@@ -1,0 +1,9 @@
+.popup__submit-button_place_login {
+  background-color: white;
+  color: #000;
+  transition: background-color 1s linear;
+}
+
+.popup__submit-button_place_login:hover {
+  background-color: rgba(255, 255, 255, .85);
+}

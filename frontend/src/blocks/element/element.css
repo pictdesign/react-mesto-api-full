@@ -1,0 +1,7 @@
+.element {
+  position: relative;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+}
