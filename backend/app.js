@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const { celebrate, Joi, errors } = require('celebrate');
+require('dotenv').config();
 const bodyParser = require('body-parser');
 const userRouter = require('./router/users');
 const cardsRouter = require('./router/cards');
