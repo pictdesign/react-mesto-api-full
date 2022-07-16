@@ -15,10 +15,10 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "npm run build",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "gh-pages -d build"
+    "deploy": "npm run build && scp -r ./build/* pictdesign@158.160.2.10:~/pictdesign/react-api-mesto-full/frontend"
   },
   "eslintConfig": {
     "extends": [
