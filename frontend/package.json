@@ -15,7 +15,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "npm run build && scp -r ./build/* pictdesign@158.160.6.178:mesto-frontend",
+    "build": "npm run build && scp -r ./build/* pictdesign@158.160.6.178:home/react-mesto-api-full/mesto-frontend",
+    "buildlocal": "npm run build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "deploy": "gh-pages -d build"
