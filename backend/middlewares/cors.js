@@ -3,10 +3,10 @@ const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
 const allowedCors = [
   'localhost:3000',
   'http://localhost:3000',
-  'https://localhost:3000'
-  'pictdesign.nomoredomains.xyz/',
-  'http://pictdesign.nomoredomains.xyz/',
-  'https://pictdesign.nomoredomains.xyz/',
+  'https://localhost:3000',
+  'pictdesign.nomoredomains.xyz',
+  'http://pictdesign.nomoredomains.xyz',
+  'https://pictdesign.nomoredomains.xyz',
 ];
 
 const Cors = (req, res, next) => {
@@ -24,6 +24,8 @@ const Cors = (req, res, next) => {
     res.header('Access-Control-Allow-Headers', requestHeaders);
     return res.status(200).end();
   }
+
+  next();
 };
 
 module.exports = Cors;

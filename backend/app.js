@@ -20,9 +20,9 @@ mongoose.connect('mongodb://localhost:27017/mesto', {
   useNewUrlParser: true,
 });
 
+app.use(Cors);
 app.use(cookieParser());
 app.use(requestLogger);
-app.use(Cors);
 app.use(bodyParser.json());
 
 app.get('/crash-test', () => {
