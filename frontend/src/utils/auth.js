@@ -43,6 +43,7 @@ class Auth {
     return fetch(`${this.url}/users/me`, {
       method: 'GET',
       headers: {
+        'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
       credentials: 'include',

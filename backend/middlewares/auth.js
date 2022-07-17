@@ -7,15 +7,14 @@ const isAuthorized = (req, res, next) => {
   if (!jwt) {
     throw new AuthorizationError('Необходимо авторизоваться');
   }
+  let payload;
   try {
-    const payload = checkToken(jwt);
+    payload = checkToken(jwt);
     User.findOne({ id: payload })
       .then((user) => {
         if (!user) {
           throw new AuthorizationError('Необходимо авторизоваться');
         }
-        req.user = payload;
-        next();
       })
       .catch((err) => {
         next(err);
@@ -23,6 +22,8 @@ const isAuthorized = (req, res, next) => {
   } catch (err) {
     throw new AuthorizationError('Необходимо авторизоваться');
   }
+  req.user = payload;
+  next();
 };
 
 module.exports = { isAuthorized };
