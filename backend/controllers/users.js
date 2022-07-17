@@ -30,7 +30,7 @@ const getUser = (req, res, next) => {
 };
 
 const getMe = (req, res, next) => {
-  User.findOne({ id: req.user.payload })
+  User.findOne({ _id: req.user.payload })
     .then((user) => {
       res.status(200).send(user);
     })
@@ -118,7 +118,7 @@ const login = (req, res, next) => {
   }
   return User.findUserByCredentials(email, password)
     .then((user) => {
-      const token = generateToken(user.id);
+      const token = generateToken(user._id);
       res
         .status(200)
         .cookie('jwt', token, {
