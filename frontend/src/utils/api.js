@@ -12,6 +12,9 @@ class Api {
 
   _fetch(request, requestOptions) {
     return fetch(this._url + request, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
       credentials: 'include',
       ...requestOptions,
     }).then((res) => {
@@ -20,18 +23,14 @@ class Api {
   }
 
   getUserInfo() {
-    return fetch(`${this._url}/users/me`, {
+    return this._fetch('/users/me', {
       method: 'GET',
-      credentials: 'include',
     });
   }
 
   changeUserInfo({ name, about }) {
     return this._fetch("/users/me", {
       method: "PATCH",
-      headers: {
-        "Content-type": "application/json",
-      },
       body: JSON.stringify({ name, about }),
     });
   }
@@ -39,9 +38,6 @@ class Api {
   addCard({ link, name }) {
     return this._fetch("/cards", {
       method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
       body: JSON.stringify({ link, name }),
     });
   }
@@ -49,9 +45,6 @@ class Api {
   changeUserAvatar({ avatar }) {
     return this._fetch("/users/me/avatar", {
       method: "PATCH",
-      headers: {
-        "Content-type": "application/json",
-      },
       body: JSON.stringify({ avatar }),
     });
   }
