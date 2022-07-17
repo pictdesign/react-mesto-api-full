@@ -29,12 +29,21 @@ const getUser = (req, res, next) => {
     });
 };
 
-const getMe = (req, res, next) => {
-  User.findOne({ _id: req.user.payload })
-    .then((user) => {
-      res.status(200).send(user);
-    })
-    .catch((err) => next(err));
+const getMe = async (req, res, next) => {
+  const userId = req.user.payload;
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      throw new NotFoundError('Пользователь с id не найден');
+    }
+    res.status(200).send({ data: user });
+  } catch (error) {
+    if (error.name === 'CastError') {
+      next(new BadRequestError('Некорректный id пользователя'));
+    } else {
+      next(error);
+    }
+  }
 };
 
 const createUser = async (req, res, next) => {
