@@ -4,7 +4,7 @@ import api from "../utils/api";
 import ProtectedRoute from "./ProtectedRoute";
 import Login from "./Login";
 import Register from "./Register";
-import * as auth from "../utils/auth";
+import auth from "../utils/auth";
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";

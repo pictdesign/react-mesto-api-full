@@ -1,8 +1,8 @@
 class Api {
-  constructor(url, cohort, token) {
+  constructor(url) {
     this._url = url;
-    this._cohort = cohort;
-    this._token = token;
+    // this._cohort = cohort;
+    // this._token = token;
   }
 
   _getResponseData(res) {
@@ -13,10 +13,7 @@ class Api {
   }
 
   _fetch(request, requestOptions) {
-    return fetch(this._url + this._cohort + request, {
-      headers: {
-        authorization: this._token,
-      },
+    return fetch(this._url + request, {
       ...requestOptions,
     }).then((res) => {
       return this._getResponseData(res);
@@ -53,7 +50,7 @@ class Api {
     return this._fetch("/users/me/avatar", {
       method: "PATCH",
       headers: {
-        authorization: this._token,
+        
         "Content-type": "application/json",
       },
       body: JSON.stringify({ avatar }),
@@ -67,27 +64,21 @@ class Api {
   deleteCard(cardId) {
     return this._fetch(`/cards/${cardId}`, {
       method: "DELETE",
-      headers: {
-        authorization: this._token,
-      },
+      
     });
   }
 
   likeCard(cardId) {
     return this._fetch(`/cards/likes/${cardId}`, {
       method: "PUT",
-      headers: {
-        authorization: this._token,
-      },
+      
     });
   }
 
   deleteLike(cardId) {
     return this._fetch(`/cards/likes/${cardId}`, {
       method: "DELETE",
-      headers: {
-        authorization: this._token,
-      },
+      
     });
   }
 
@@ -101,7 +92,5 @@ class Api {
 }
 
 export default new Api(
-  "https://mesto.nomoreparties.co/v1/",
-  "cohort-28",
-  "0e67701d-63ae-4a9e-9207-db93e93ce8e5"
+  "http://api.pictdesign.nomoredomains.xyz",
 );

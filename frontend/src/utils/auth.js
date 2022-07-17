@@ -1,41 +1,58 @@
-export const BASE_URL = "https://auth.nomoreparties.co";
-
-function getResponseData(res) {
-  if (res.ok) {
-    return res.json();
+class Auth {
+  constructor(url) {
+    this.url = url;
   }
-  return Promise.reject(`Ошибка: ${res.status}`);
-}
 
-export const register = (email, password) => {
-  return fetch(`${BASE_URL}/signup`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ "email": email, "password": password }),
-  })
-  .then(getResponseData);
+  _getResponseData(res) {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status} ${res.statusText}`);
+  }
+
+  register(email, password) {
+    return fetch(`${this.url}/signup`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ "email": email, "password": password }),
+    })
+    .then((res) => {
+      return this._getResponseData(res);
+    });
+  }
+
+  authorization(email, password) {
+    return fetch(`${this.url}/signin`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify({ "email": email, "password": password }),
+    })
+    .then((res) => {
+      return this._getResponseData(res);
+    });
+  }
+
+  getContent(token) {
+    return fetch(`${this.url}/users/me`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+    })
+    .then((res) => {
+      return this._getResponseData(res);
+    });
+  }
 };
 
-export const authorization = (email, password) => {
-  return fetch(`${BASE_URL}/signin`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ "email": email, "password": password }),
-  })
-  .then(getResponseData);
-};
-
-export const getContent = (token) => {
-  return fetch(`${BASE_URL}/users/me`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`,
-    },
-  })
-  .then(getResponseData);
-};
+export default new Auth(
+  "https://api.pictdesign.nomoredomains.xyz",
+);
