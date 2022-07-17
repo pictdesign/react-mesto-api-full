@@ -129,11 +129,18 @@ const login = (req, res, next) => {
     .then((user) => {
       const token = generateToken(user._id);
       res
-        .status(200)
         .cookie('jwt', token, {
           maxAge: 3600000 * 24 * 7,
           httpOnly: true,
-        }).end();
+        })
+        .send({
+          data: {
+            email: user.email,
+            name: user.name,
+            about: user.about,
+            avatar: user.avatar,
+          },
+        });
     })
     .catch((err) => next(err));
 };

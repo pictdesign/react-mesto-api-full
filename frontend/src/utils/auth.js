@@ -7,7 +7,7 @@ class Auth {
     if (res.ok) {
       return res.json();
     }
-    return Promise.reject(`Ошибка: ${res.status} ${res.statusText}`);
+    return Promise.reject(new Error(`Ошибка ${res.status}: ${res.statusText}`));
   }
 
   register(email, password) {
@@ -19,11 +19,9 @@ class Auth {
       },
       body: JSON.stringify({ "email": email, "password": password }),
     })
-    .then((res) => {
-      return this._getResponseData(res);
-    });
-  }
-
+    .then(this._getResponseData);
+  };
+  
   authorization(email, password) {
     return fetch(`${this.url}/signin`, {
       method: 'POST',
@@ -32,13 +30,11 @@ class Auth {
         'Content-Type': 'application/json',
       },
       credentials: 'include',
-      body: JSON.stringify({ "email": email, "password": password }),
+      body: JSON.stringify({ email, password }),
     })
-    .then((res) => {
-      return this._getResponseData(res);
-    });
-  }
-
+    .then(this._getResponseData);
+  };
+  
   getContent() {
     return fetch(`${this.url}/users/me`, {
       method: 'GET',
@@ -48,9 +44,7 @@ class Auth {
       },
       credentials: 'include',
     })
-    .then((res) => {
-      return this._getResponseData(res);
-    });
+    .then(this._getResponseData);
   }
 
   signout() {
@@ -62,12 +56,10 @@ class Auth {
       },
       credentials: 'include',
     })
-    .then((res) => {
-      return this._getResponseData(res);
-    });
+    .then(this._getResponseData);
   }
-};
+}
 
 export default new Auth(
-  "https://api.pictdesign.nomoredomains.xyz"
+  'https://api.pictdesign.nomoredomains.xyz'
 );

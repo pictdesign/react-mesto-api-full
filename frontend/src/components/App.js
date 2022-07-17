@@ -96,10 +96,8 @@ function App() {
   const handleAuthorization = (email, password) => {
     return auth
       .authorization(email, password)
-      .then((data) => {
-        if(data){
-          tokenCheck();
-        }
+      .then((res) => {
+        tokenCheck();
       })
       .catch((err) => {
         console.log(err);
