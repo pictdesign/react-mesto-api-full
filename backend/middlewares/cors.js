@@ -8,7 +8,7 @@ const allowedCors = [
   'https://pictdesign.nomoredomains.xyz/',
 ];
 
-module.exports = (req, res, next) => {
+const Cors = (req, res, next) => {
   const { origin } = req.headers;
   const { method } = req;
   const requestHeaders = req.headers['access-control-request-headers'];
@@ -27,3 +27,5 @@ module.exports = (req, res, next) => {
   next();
   return true;
 };
+
+module.exports = Cors;

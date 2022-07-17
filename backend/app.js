@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 const userRouter = require('./router/users');
 const cardsRouter = require('./router/cards');
 const NotFoundError = require('./errors/NotFoundError');
-const cors = require('./middlewares/cors');
+const Cors = require('./middlewares/cors');
 const { login, createUser } = require('./controllers/users');
 const { isAuthorized } = require('./middlewares/auth');
 const { validateUrl } = require('./utils/utils');
@@ -22,7 +22,7 @@ mongoose.connect('mongodb://localhost:27017/mesto', {
 
 app.use(cookieParser());
 app.use(requestLogger);
-app.use(cors);
+app.use(Cors);
 app.use(bodyParser.json());
 
 app.get('/crash-test', () => {
