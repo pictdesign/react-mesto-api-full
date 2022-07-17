@@ -39,7 +39,7 @@ class Auth {
     });
   }
 
-  getContent(token) {
+  getContent() {
     return fetch(`${this.url}/users/me`, {
       method: 'GET',
       headers: {
@@ -51,8 +51,22 @@ class Auth {
       return this._getResponseData(res);
     });
   }
+
+  signout() {
+    return fetch(`${this.url}/signout`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+    })
+    .then((res) => {
+      return this._getResponseData(res);
+    });
+  }
 };
 
 export default new Auth(
-  "https://api.pictdesign.nomoredomains.xyz",
+  "https://api.pictdesign.nomoredomains.xyz"
 );

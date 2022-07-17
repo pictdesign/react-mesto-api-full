@@ -1,8 +1,6 @@
 class Api {
   constructor(url) {
     this._url = url;
-    // this._cohort = cohort;
-    // this._token = token;
   }
 
   _getResponseData(res) {
