@@ -33,21 +33,25 @@ function App() {
   const history = useHistory();
 
   useEffect(() => {
-    Promise.all([
-      api.getUserInfo(), 
-      api.getInitialCards()
-      ])
-      .then(([userData, cardsData]) => {
-        setCurrentUser((user) => ({
-          ...user,
-          ...userData,
-        }));
-        setCards(cardsData);
-      })
-      .catch((err) => {
-        console.log(err);
-    });
-  }, []);
+    async function fetchUserData() {
+      const userData = await api.getUserInfo();
+      setCurrentUser((user) => ({
+        ...user,
+        ...userData.data,
+      })); 
+    }
+    
+    const fetchCards = async () => {
+      const res = await api.getInitialCards();
+      setCards(res);
+    };
+    try {
+      loggedIn && fetchUserData();
+      loggedIn && fetchCards();
+    } catch (err) {
+      console.log(err);
+    }
+  }, [loggedIn]);
 
   const tokenCheck = () => {
     auth
