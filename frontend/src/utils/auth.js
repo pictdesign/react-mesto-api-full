@@ -61,6 +61,6 @@ class Auth {
 }
 
 export default new Auth(
-  'http://localhost:3000'
-  // 'https://api.pictdesign.nomoredomains.xyz'
+  // 'http://localhost:3000'
+  'https://api.pictdesign.nomoredomains.xyz'
 );
