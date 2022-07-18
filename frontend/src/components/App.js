@@ -167,14 +167,14 @@ function App() {
       .finally(() => setIsLoading(false));
   }
 
-  function handleUpdateUser(user) {
+  function handleUpdateUser(userData) {
     setIsLoading(true);
     api
-      .changeUserInfo(user)
+      .changeUserInfo(userData)
       .then((res) => {
         setCurrentUser((user) => ({
           ...user,
-          ...res.data,
+          ...res,
         }));
         closeAllPopups();
       })
