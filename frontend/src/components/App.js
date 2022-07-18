@@ -47,7 +47,7 @@ function App() {
       .catch((err) => {
         console.log(err);
     });
-  }, [loggedIn]);
+  }, []);
 
   const tokenCheck = () => {
     auth
