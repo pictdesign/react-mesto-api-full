@@ -40,7 +40,7 @@ function App() {
         ...userData.data,
       })); 
     }
-    
+
     const fetchCards = async () => {
       const res = await api.getInitialCards();
       setCards(res);
@@ -172,7 +172,10 @@ function App() {
     api
       .changeUserInfo(user)
       .then((res) => {
-        setCurrentUser(res);
+        setCurrentUser((user) => ({
+          ...user,
+          ...res,
+        }));
         closeAllPopups();
       })
       .catch((err) => {
