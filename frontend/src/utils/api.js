@@ -54,7 +54,14 @@ class Api {
   }
 
   getInitialCards() {
-    return this._fetch("/cards");
+    return _fetch(`${this.url}/cards`, {
+      method: "GET",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+    })
+    .then(this._getResponseData);
   }
 
   deleteCard(cardId) {
@@ -85,5 +92,5 @@ class Api {
 }
 
 export default new Api(
-  "http://api.pictdesign.nomoredomains.xyz",
+  'https://api.pictdesign.nomoredomains.xyz'
 );
