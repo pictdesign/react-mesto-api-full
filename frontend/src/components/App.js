@@ -33,22 +33,20 @@ function App() {
   const history = useHistory();
 
   useEffect(() => {
-    if (loggedIn) {
-      Promise.all([
-        api.getUserInfo(), 
-        api.getInitialCards()
-        ])
-        .then(([userData, cardsData]) => {
-          setCurrentUser((user) => ({
-            ...user,
-            ...userData,
-          }));
-          setCards(cardsData);
-        })
-        .catch((err) => {
-          console.log(err);
-      });
-    }
+    Promise.all([
+      api.getUserInfo(), 
+      api.getInitialCards()
+      ])
+      .then(([userData, cardsData]) => {
+        setCurrentUser((user) => ({
+          ...user,
+          ...userData,
+        }));
+        setCards(cardsData);
+      })
+      .catch((err) => {
+        console.log(err);
+    });
   }, [loggedIn]);
 
   const tokenCheck = () => {
