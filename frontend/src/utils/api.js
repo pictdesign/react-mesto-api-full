@@ -58,7 +58,7 @@ class Api {
   }
 
   getInitialCards() {
-    return fetch(`${this.url}/cards`, {
+    return fetch(`${this._url}/cards`, {
       method: "GET",
       headers: {
         'Content-Type': 'application/json',
@@ -69,7 +69,7 @@ class Api {
   }
 
   deleteCard(cardId) {
-    return fetch(`${this.url}/cards/${cardId}`, {
+    return fetch(`${this._url}/cards/${cardId}`, {
       method: "DELETE",
       headers: {
         'Content-Type': 'application/json',
@@ -80,7 +80,7 @@ class Api {
   }
 
   likeCard(cardId) {
-    return this._fetch(`${this.url}/cards/likes/${cardId}`, {
+    return fetch(`${this._url}/cards/likes/${cardId}`, {
       method: "PUT",
       headers: {
         'Content-Type': 'application/json',
@@ -91,7 +91,7 @@ class Api {
   }
 
   deleteLike(cardId) {
-    return this._fetch(`${this.url}/cards/likes/${cardId}`, {
+    return fetch(`${this._url}/cards/likes/${cardId}`, {
       method: "DELETE",
       headers: {
         'Content-Type': 'application/json',
