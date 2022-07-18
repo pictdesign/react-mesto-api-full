@@ -7,7 +7,7 @@ class Api {
     if (res.ok) {
       return res.json();
     }
-    return Promise.reject(`Ошибка: ${res.status}`);
+    return Promise.reject(new Error(`Ошибка ${res.status}: ${res.statusText}`));
   }
 
   _fetch(request, requestOptions) {
@@ -17,15 +17,19 @@ class Api {
       },
       credentials: 'include',
       ...requestOptions,
-    }).then((res) => {
-      return this._getResponseData(res);
-    });
+    })    
+    .then(this._getResponseData);
   }
 
   getUserInfo() {
-    return this._fetch('/users/me', {
+    return fetch(`${this._url}/users/me`, {
       method: 'GET',
-    });
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+    })
+    .then(this._getResponseData);
   }
 
   changeUserInfo({ name, about }) {
