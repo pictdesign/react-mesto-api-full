@@ -33,7 +33,7 @@ function App() {
   const history = useHistory();
 
   useEffect(() => {
-    async function fetchUserData() {
+    const fetchUserData = async () => {
       const userData = await api.getUserInfo();
       setCurrentUser((user) => ({
         ...user,
@@ -45,6 +45,7 @@ function App() {
       const res = await api.getInitialCards();
       setCards(res);
     };
+
     try {
       loggedIn && fetchUserData();
       loggedIn && fetchCards();
@@ -92,7 +93,6 @@ function App() {
       .finally(() => {
         setIsInfoTooltipOpen(true);
       });
-
     }
 
   const handleAuthorization = (email, password) => {
@@ -174,7 +174,7 @@ function App() {
       .then((res) => {
         setCurrentUser((user) => ({
           ...user,
-          ...res,
+          ...res.data,
         }));
         closeAllPopups();
       })
