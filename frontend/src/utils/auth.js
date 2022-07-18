@@ -20,7 +20,7 @@ class Auth {
       body: JSON.stringify({ "email": email, "password": password }),
     })
     .then(this._getResponseData);
-  };
+  }
   
   authorization(email, password) {
     return fetch(`${this.url}/signin`, {
@@ -61,5 +61,6 @@ class Auth {
 }
 
 export default new Auth(
-  'https://api.pictdesign.nomoredomains.xyz'
+  'http://localhost:3000'
+  // 'https://api.pictdesign.nomoredomains.xyz'
 );

@@ -75,12 +75,11 @@ const createUser = async (req, res, next) => {
   }
 };
 
-
 const updateUser = async (req, res, next) => {
-  const userId = req.user.id;
+  const userId = req.user.payload;
   const { name, about } = req.body;
   try {
-    const user = await User.findOneAndUpdate(
+    const user = await User.findByIdAndUpdate(
       userId,
       { name, about },
       { new: true, runValidators: true },
@@ -88,7 +87,7 @@ const updateUser = async (req, res, next) => {
     if (!user) {
       throw new NotFoundError('Пользователь не найден');
     }
-    res.status(200).send({ user });
+    res.status(200).send(user);
   } catch (err) {
     if (err.name === 'ValidationError') {
       next(new BadRequestError());
@@ -99,7 +98,7 @@ const updateUser = async (req, res, next) => {
 };
 
 const updateAvatar = async (req, res, next) => {
-  const userId = req.user._id;
+  const userId = req.user.payload;
   const { avatar } = req.body;
   try {
     const user = await User.findByIdAndUpdate(
@@ -110,7 +109,7 @@ const updateAvatar = async (req, res, next) => {
     if (!user) {
       throw new NotFoundError('Пользователь не найден');
     }
-    res.status(200).send({ user });
+    res.status(200).send(user);
   } catch (err) {
     if (err.name === 'ValidationError') {
       next(new BadRequestError());

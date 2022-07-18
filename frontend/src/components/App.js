@@ -59,10 +59,10 @@ function App() {
       .getContent()
       .then((res) => {
         setLoggedIn(true);
-        setCurrentUser((user) => ({
-          ...user,
-          email: res.data.email,
-        }));
+        // setCurrentUser((user) => ({
+        //   ...user,
+        //   email: res.data.email,
+        // }));
       })
       .catch((e) => console.log(e));
   };
@@ -172,7 +172,7 @@ function App() {
     api
       .changeUserInfo(userData)
       .then((res) => {
-        setCurrentUser((user) => ({
+        setCurrentUser((user) => ({        
           ...user,
           ...res,
         }));
