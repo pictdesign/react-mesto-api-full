@@ -85,5 +85,5 @@ class Api {
 }
 
 export default new Api(
-  "http://api.pictdesign.nomoredomains.xyz",
+  "https://api.pictdesign.nomoredomains.xyz",
 );
