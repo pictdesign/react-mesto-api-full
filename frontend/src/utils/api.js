@@ -10,17 +10,6 @@ class Api {
     return Promise.reject(new Error(`Ошибка ${res.status}: ${res.statusText}`));
   }
 
-  _fetch(request, requestOptions) {
-    return fetch(this._url + request, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include',
-      ...requestOptions,
-    })    
-    .then(this._getResponseData);
-  }
-
   getUserInfo() {
     return fetch(`${this._url}/users/me`, {
       method: 'GET',
@@ -33,10 +22,15 @@ class Api {
   }
 
   changeUserInfo({ name, about }) {
-    return this._fetch("/users/me", {
-      method: "PATCH",
+    return fetch(`${this._url}/users/me`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
       body: JSON.stringify({ name, about }),
-    });
+    })
+    .then(this._getResponseData);
   }
 
   addCard({ link, name }) {
