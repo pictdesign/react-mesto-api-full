@@ -34,17 +34,27 @@ class Api {
   }
 
   addCard({ link, name }) {
-    return this._fetch("/cards", {
+    return fetch(`${this._url}/cards`, {
       method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
       body: JSON.stringify({ link, name }),
-    });
+    })
+    .then(this._getResponseData);
   }
 
   changeUserAvatar({ avatar }) {
-    return this._fetch("/users/me/avatar", {
+    return fetch(`${this._url}/users/me/avatar`, {
       method: "PATCH",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
       body: JSON.stringify({ avatar }),
-    });
+    })
+    .then(this._getResponseData);
   }
 
   getInitialCards() {
@@ -59,21 +69,36 @@ class Api {
   }
 
   deleteCard(cardId) {
-    return this._fetch(`/cards/${cardId}`, {
+    return fetch(`${this.url}/cards/${cardId}`, {
       method: "DELETE",
-    });
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+    })
+    .then(this._getResponseData);
   }
 
   likeCard(cardId) {
-    return this._fetch(`/cards/likes/${cardId}`, {
+    return this._fetch(`${this.url}/cards/likes/${cardId}`, {
       method: "PUT",
-    });
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+    })
+    .then(this._getResponseData);
   }
 
   deleteLike(cardId) {
-    return this._fetch(`/cards/likes/${cardId}`, {
+    return this._fetch(`${this.url}/cards/likes/${cardId}`, {
       method: "DELETE",
-    });
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+    })
+    .then(this._getResponseData);
   }
 
   changeLikeCardStatus(cardId, isLiked) {
