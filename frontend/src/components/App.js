@@ -41,14 +41,14 @@ function App() {
       })); 
     }
 
-    const fetchCards = async () => {
-      const res = await api.getInitialCards();
-      setCards(res);
-    };
+    // const fetchCards = async () => {
+    //   const res = await api.getInitialCards();
+    //   setCards(res);
+    // };
 
     try {
       loggedIn && fetchUserData();
-      loggedIn && fetchCards();
+      // loggedIn && fetchCards();
     } catch (err) {
       console.log(err);
     }

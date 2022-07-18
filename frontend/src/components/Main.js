@@ -41,15 +41,16 @@ function Main({
       </section>
       <section className="elements">
         <ul className="elements__list">
-          {cards.map((card) => {
-            return (
-              <Card
-                key={card._id}
-                card={card}
-                onCardClick={onCardClick}
-                onCardDelete={onCardDelete}
-                onCardLike={onCardLike}
-              />
+          {
+            cards.map((card) => {
+              return (
+                <Card
+                  key={card._id}
+                  card={card}
+                  onCardClick={onCardClick}
+                  onCardDelete={onCardDelete}
+                  onCardLike={onCardLike}
+                />
             );
           })}
         </ul>
