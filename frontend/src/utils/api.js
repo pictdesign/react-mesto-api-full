@@ -54,7 +54,7 @@ class Api {
   }
 
   getInitialCards() {
-    return _fetch(`${this.url}/cards`, {
+    return fetch(`${this.url}/cards`, {
       method: "GET",
       headers: {
         'Content-Type': 'application/json',
