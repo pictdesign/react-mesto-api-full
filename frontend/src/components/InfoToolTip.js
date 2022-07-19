@@ -9,7 +9,7 @@ const InfoTooltip = ({ isOpen, onClose, successRegistration }) => {
         <button type="button" className="popup__close-button" onClick={onClose} />
         <img src={successRegistration ? successIcon : failIcon} alt="" className="popup__icon" />
         <p className="popup__title popup__title_tooltip">
-          {successRegistration ? "Вы успешно зарегистрировались!" : "Что-то пошло не так! Попробуйте еще раз."}  
+          {successRegistration ? 'Вы успешно зарегистрировались!' : 'Что-то пошло не так' };
         </p>
       </div>
     </div>

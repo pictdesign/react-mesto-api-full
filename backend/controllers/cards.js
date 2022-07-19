@@ -5,7 +5,7 @@ const ForbiddenError = require('../errors/ForbiddenError');
 
 const getCards = (_, res, next) => {
   Card.find({})
-    .then((cards) => res.status(200).send({ cards }))
+    .then((cards) => res.status(200).send(cards))
     .catch((err) => next(err));
 };
 
@@ -13,7 +13,7 @@ const createCard = (req, res, next) => {
   const { name, link } = req.body;
   const owner = req.user.payload;
   Card.create({ name, link, owner })
-    .then((card) => res.status(201).send({ card }))
+    .then((card) => res.status(201).send(card))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new BadRequestError());
@@ -34,7 +34,7 @@ const deleteCard = (req, res, next) => {
           throw new ForbiddenError();
         }
         return card.remove()
-          .then(() => res.status(200).send({ card }));
+          .then(() => res.status(200).send(card));
       }
     })
     .catch((err) => {
@@ -53,7 +53,7 @@ const likeCard = (req, res, next) => {
       if (!card) {
         throw new NotFoundError('Карточка не найдена');
       } else {
-        res.status(200).send({ card });
+        res.status(200).send(card);
       }
     })
     .catch((err) => {
@@ -72,7 +72,7 @@ const dislikeCard = (req, res, next) => {
       if (!card) {
         throw new NotFoundError('Карточка не найдена');
       } else {
-        res.status(200).send({ card });
+        res.status(200).send(card);
       }
     })
     .catch((err) => {

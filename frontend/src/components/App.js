@@ -41,40 +41,47 @@ function App() {
       })); 
     }
 
-    // const fetchCards = async () => {
-    //   const res = await api.getInitialCards();
-    //   setCards(res);
-    // };
+    const fetchCards = async () => {
+      const cards = await api.getInitialCards();
+      setCards(cards);
+    };
 
     try {
       loggedIn && fetchUserData();
-      // loggedIn && fetchCards();
+      loggedIn && fetchCards();
     } catch (err) {
       console.log(err);
     }
   }, [loggedIn]);
+
+  const escFunction = (event) => {
+    if (event.keyCode === 27) {
+      closeAllPopups();
+    }
+  };
 
   const tokenCheck = () => {
     auth
       .getContent()
       .then((res) => {
         setLoggedIn(true);
-        // setCurrentUser((user) => ({
-        //   ...user,
-        //   email: res.data.email,
-        // }));
       })
       .catch((e) => console.log(e));
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (loggedIn) {
       history.push('/');
     }
   }, [loggedIn]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     tokenCheck();
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener('keydown', escFunction);
+    return window.removeEventListener('keyup', escFunction);
   }, []);
 
   const handleRegistration = (email, password) => {
@@ -88,7 +95,7 @@ function App() {
         }
       })
       .catch((err) => {
-        console.log(err);
+        setIsInfoTooltipOpen({ isOpen: true });
       })
       .finally(() => {
         setIsInfoTooltipOpen(true);
@@ -102,17 +109,15 @@ function App() {
         tokenCheck();
       })
       .catch((err) => {
-        console.log(err);
         setSuccessRegistration(false);
-        setIsInfoTooltipOpen(true);
+        setIsInfoTooltipOpen({ isOpen: true });
       });
-      
   }
 
   const handleLogout = () => {
+    auth.signout(); 
     setLoggedIn(false);
-    history.push('/signin');
-  }
+  };
 
   const handleEditAvatarClick = () => {
     setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
@@ -140,9 +145,9 @@ function App() {
   
   function handleCardLike(card) {
     setIsLoading(true);
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    const isLiked = card.likes.some((i) => i === currentUser._id);
     api
-      .changeLikeCardStatus(card._id, isLiked)
+      .likeCard(card._id, isLiked)
       .then((newCard) => {
         setCards((state) =>
           state.map((c) => (c._id === card._id ? newCard : c))
@@ -216,26 +221,19 @@ function App() {
   return (
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
-        
         <LoadingContext.Provider value={isLoading}>
-        <Header loggedIn={loggedIn} onLogout={handleLogout} />
-        
+          <Header loggedIn={loggedIn} onLogout={handleLogout} />
           <Switch>
-            
             <Route path="/signin">
                 <Login
                   onLogin={handleAuthorization}
                 />
-                <Footer />
             </Route>
-            
             <Route path="/signup">
               <Register
                 onRegister={handleRegistration}
               />
-              
             </Route>
-          
             <ProtectedRoute exact path="/" loggedIn={loggedIn}>
               <Main
                 onEditProfile={handleEditProfileClick}
@@ -247,42 +245,40 @@ function App() {
                 onCardLike={handleCardLike}
               />
             </ProtectedRoute>
-            <Footer />
           </Switch>
-            <PopupProfile
-                isOpen={isEditProfilePopupOpen}
-                onClose={closeAllPopups}
-                onUpdateUser={handleUpdateUser}
-              />
-              <PopupAvatar
-                isOpen={isEditAvatarPopupOpen}
-                onClose={closeAllPopups}
-                onUpdateAvatar={handleUpdateAvatar}
-              />
-              <PopupAddPlace
-                isOpen={isAddPlacePopupOpen}
-                onClose={closeAllPopups}
-                onAddPlace={handleAddPlaceSubmit}
-              />
-              <ImagePopup 
-                card={selectedCard} 
-                onClose={closeAllPopups} 
-              />
-              
-              <Route path="*">
-                <Redirect to="/signin" />
-              </Route>
-
-              <InfoTooltip
-                isOpen={isInfoTooltipOpen}
-                successRegistration={successRegistration}
-                onClose={closeAllPopups}
-              />
-          
+          <PopupProfile
+              isOpen={isEditProfilePopupOpen}
+              onClose={closeAllPopups}
+              onUpdateUser={handleUpdateUser}
+            />
+            <PopupAvatar
+              isOpen={isEditAvatarPopupOpen}
+              onClose={closeAllPopups}
+              onUpdateAvatar={handleUpdateAvatar}
+            />
+            <PopupAddPlace
+              isOpen={isAddPlacePopupOpen}
+              onClose={closeAllPopups}
+              onAddPlace={handleAddPlaceSubmit}
+            />
+            <ImagePopup 
+              card={selectedCard} 
+              onClose={closeAllPopups} 
+            />
+            <InfoTooltip
+              isOpen={isInfoTooltipOpen}
+              successRegistration={successRegistration}
+              onClose={closeAllPopups}
+            />
+            
+            <Route path="*">
+              <Redirect to="/signin" />
+            </Route>
+          <Footer />
         </LoadingContext.Provider>
       </CurrentUserContext.Provider>
     </div>
   );
-}
+};
 
 export default App;

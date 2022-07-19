@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Login = ( {onLogin} ) => {
 
@@ -54,8 +55,10 @@ const Login = ( {onLogin} ) => {
         <button className="popup__submit-button popup__submit-button_place_login" type="submit">
           Войти
         </button>
-        
       </div>
+      <p className="form__text">
+          Хотите увидеть картинки? <Link to="signup" className="form__link">Зарегистрироваться</Link>
+        </p>
     </form>
     
   )
