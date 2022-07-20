@@ -27,8 +27,8 @@ const Cors = (req, res, next) => {
     res.header('Access-Control-Allow-Headers', requestHeaders);
     return res.status(200).end();
   }
-
   next();
+  return true;
 };
 
 module.exports = Cors;

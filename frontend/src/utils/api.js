@@ -92,6 +92,6 @@ class Api {
 }
 
 export default new Api(
-  // 'http://localhost:3000'
-  'https://api.pictdesign.nomoredomains.xyz'
+  'http://localhost:3000'
+  // 'https://api.pictdesign.nomoredomains.xyz'
 );

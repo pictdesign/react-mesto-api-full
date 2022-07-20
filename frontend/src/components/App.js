@@ -267,7 +267,7 @@ function App() {
             />
             <InfoTooltip
               isOpen={isInfoTooltipOpen}
-              successRegistration={successRegistration}
+              success={successRegistration}
               onClose={closeAllPopups}
             />
             
