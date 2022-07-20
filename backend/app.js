@@ -1,28 +1,21 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
-const rateLimit = require('express-rate-limit');
 const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
 require('dotenv').config();
 const bodyParser = require('body-parser');
+const rateLimiter = require('./utils/security');
 const authRouter = require('./router/auth');
 const userRouter = require('./router/users');
 const cardsRouter = require('./router/cards');
 const error = require('./middlewares/error');
-const NotFoundError = require('./errors/NotFoundError');
 const Cors = require('./middlewares/cors');
 const { isAuthorized } = require('./middlewares/auth');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const PORT = process.env.PORT || 3000;
 const app = express();
-const rateLimiter = rateLimit({
-  windowMs: 1 * 60 * 1000,
-  max: 50,
-  standardHeaders: true,
-  legacyHeaders: false,
-});
 
 mongoose.connect('mongodb://localhost:27017/mesto', {
   useNewUrlParser: true,
